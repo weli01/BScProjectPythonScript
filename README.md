@@ -3,7 +3,7 @@
 
 ## Description
 
-Repository for storing all the Python code implemented in my BSc (Hons.) in Physics, Medical Physics and Radiation Protection project titled "Setup and operation of a thermoluminescent dosimetry system for patient organ dosimetry."
+Repository for storing all the Python code implemented in my BSc (Hons.) in Physics, Medical Physics and Radiation Protection project titled "**Setup and operation of a thermoluminescent dosimetry system for patient organ dosimetry**."
 This code was used to both analyse the data and generate plots.
 
 The code was excuted on **PyCharm 2021.2.2** running **Python 3.9**.
