@@ -1,7 +1,25 @@
 # BSc Project Python Script 
-Repository for storing all the Python code implemented in the BSc project titled "Setup and operation of a thermoluminescent dosimetry system for patient organ dosimetry."
 
+## Description
+
+Repository for storing all the Python code implemented in my BSc (Hons.) in Physics, Medical Physics and Radiation Protection project titled "Setup and operation of a thermoluminescent dosimetry system for patient organ dosimetry."
+This code was used to both analyse the data and generate plots.
+
+The code was excuted on **PyCharm 2021.2.2** running **Python 3.9**.
+
+## Structure
+
+There are 6 top folders. The first folder contains the files needed for producing the annealing heat profiles and the other five are related to each stage carried out during the project.
+
+In each folder you will find the following:
+- _data_ folder: contains the data produced either by the oven or the TLD reader
+- _results_ folder: contains numerical and/or visual (plots) results
+- _scripts_: the .py files containg the scripts for each individual task
+- _README_: a short description of each stage 
+
+## Packages
 The packages and their versions used for this project are listed below:
+```
 animation==0.0.7
 brokenaxes==0.6.1
 contourpy==1.2.1
@@ -42,3 +60,9 @@ threadpoolctl==3.1.0
 xlrd==2.0.1
 youtube-dl==2021.12.17
 zipp==3.19.2
+```
+
+## License
+
+This project is licensed under the [NAME HERE] License.
+
