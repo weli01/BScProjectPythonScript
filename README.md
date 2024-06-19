@@ -1,4 +1,5 @@
-# BSc Project Python Script 
+# BSc Project Python Script  
+❮img src="umlogo_full_red.png" width="100" ❯
 
 ## Description
 
