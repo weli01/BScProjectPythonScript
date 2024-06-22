@@ -2,7 +2,7 @@
 
 ### Data analysis
 
-For analysing the MCP and MTS data from the reader to produce the readout heating rate results.
+For analysing the MCP and MTS data from the reader to study the effect of readout heating rate on TL response.
 
 ### Glow curves
 
