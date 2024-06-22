@@ -31,7 +31,7 @@ def plot_CI(ax, x, counts, control, colour_dp, colour_ci, title, add_labels):
     # Compute mean and standard deviation
     mean, stdev = statistics.mean(counts), statistics.stdev(counts)
 
-    # Compute condife
+    # Compute connfidence interval (t=4.3 for 95% conf. lvl and df=2)
     CI = 4.3 * stdev / sqrt(len(counts))
 
     # Print results
