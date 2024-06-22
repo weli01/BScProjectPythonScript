@@ -84,7 +84,8 @@ for i, (crystal, crystal_name) in enumerate(zip([MCP, MTS], crystal_names)):
     results, sorted_crystals, median, MAD, control = process_crystal(crystal, control, is_mcp=(i == 0))
 
     # Print the results for each crystal
-    print(f'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n'
+    dash = '-' * 40
+    print(f'{dash}\n'
         f'\033[4m{crystal_name}:\033[0m\n'
         f'Median = {median:.0f} \u00B1 {MAD:.0f}\n'
         f'Control Counts = {statistics.mean(control):.0f} \u00B1 {statistics.stdev(control):.0f}\n')
@@ -99,7 +100,7 @@ for i, (crystal, crystal_name) in enumerate(zip([MCP, MTS], crystal_names)):
 
     # Print the percentage difference ranges
     print_non_nan_values(PD_ranges, PD_names)
-    print(f'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n')
+    print(f'{dash}\n')
 
     # Create a subplot for each crystal
     ax = fig.add_subplot(gs[i, 0])
