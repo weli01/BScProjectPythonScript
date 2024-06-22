@@ -2,9 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Load data from CSV files
-MCP = pd.read_csv('data/reader/MCP.csv', encoding='ANSI')
-MTS = pd.read_csv('data/reader/MTS.csv', encoding='ANSI')
+# MCP and MTS crystal data from CSV files
+MCP = pd.read_csv('data/MCP.csv', encoding='ANSI')
+MTS = pd.read_csv('data/MTS.csv', encoding='ANSI')
 
 # Define crystal names for plot
 crystal_names = ['MCP', 'MTS']
@@ -15,20 +15,20 @@ fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))
 # Iterate through crystals
 for i, (crystal, name, ax) in enumerate(zip([MCP, MTS], crystal_names, [ax1, ax2])):
 
-    # Define time range and element count parameters based on crystal index
+    # Define time range and crystal count parameters based on crystal index
     time_params = (0, 31.4, 315) if i == 0 else (0, 57.4, 575)
-    element_cnt_params = (13, 328) if i == 0 else (13, 588)
+    count_params = (13, 328) if i == 0 else (13, 588)
 
-    # Extract time data
+    # Extract time and count data
     time = np.linspace(*time_params)
-    element_cnt = pd.DataFrame([crystal.iloc[[i], slice(*element_cnt_params)].squeeze().values for i in range(0, 98, 3)])
+    count = pd.DataFrame([crystal.iloc[[i], slice(*count_params)].squeeze().values for i in range(0, 98, 3)])
 
     # Extract temperature data
-    temp = pd.Series(crystal.iloc[[2], slice(*element_cnt_params)].squeeze().values)
+    temp = pd.Series(crystal.iloc[[2], slice(*count_params)].squeeze().values)
 
-    # Compute mean and standard deviation of element counts
-    mean_cnt = element_cnt.mean()
-    st_dev = element_cnt.std(axis=0)
+    # Compute mean and standard deviation of crystal counts
+    mean_cnt = count.mean()
+    st_dev = count.std(axis=0)
 
     # Plot mean counts against time
     ax.plot(time, mean_cnt, color='#0554f2' if i == 0 else 'darkorange', label=f'Mean counts')

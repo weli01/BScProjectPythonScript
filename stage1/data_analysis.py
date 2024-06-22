@@ -6,8 +6,8 @@ from scipy import stats
 import matplotlib.gridspec as gridspec
 
 # Load MCP and MTS crystal data from CSV files
-MCP = pd.read_csv('data/reader/MCP.csv', encoding='ANSI')
-MTS = pd.read_csv('data/reader/MTS.csv', encoding='ANSI')
+MCP = pd.read_csv('data/MCP.csv', encoding='ANSI')
+MTS = pd.read_csv('data/MTS.csv', encoding='ANSI')
 
 # Define the names of the crystals and percentage difference ranges
 crystal_names = ['MCP', 'MTS']
@@ -76,6 +76,7 @@ def print_non_nan_values(df, PD_names):
 
 # Main loop to process each crystal and generate plots
 for i, (crystal, crystal_name) in enumerate(zip([MCP, MTS], crystal_names)):
+
     # Extract the control counts
     control = pd.Series([crystal.iloc[i, 10] for i in range(99, 107, 3)])
 
@@ -140,6 +141,6 @@ for i, (crystal, crystal_name) in enumerate(zip([MCP, MTS], crystal_names)):
     ax.set_title(crystal_name, weight='bold', x=0.04, y=0.875, fontsize=14)
     ax.legend(fontsize=8.5)
 
-
+# Adjust layout and save the figure
 plt.subplots_adjust(top=0.95, bottom=0.08, left=0.07, right=0.92, hspace=0.1, wspace=0.3)
 plt.savefig('results/figures/intercrystal.pdf')
