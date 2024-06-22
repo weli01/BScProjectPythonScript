@@ -35,12 +35,13 @@ def plot_CI(ax, x, counts, control, colour_dp, colour_ci, title, add_labels):
     CI = 4.3 * stdev / sqrt(len(counts))
 
     # Print results
+    dash = '-' * 50
     print(f'\033[4m{title}\033[0m:\n'
           f'Mean = {mean:.0f} \u00B1 {CI:.0f}\n'
           f'CI = {CI * 100 / mean:.1f}%\n'
           f'Counts: {counts.to_list()}\n'
           f'Control: {control}\n\n'
-          f'--------------------------------------------------------------------\n')
+          f'{dash}\n')
 
     # Plot the confidence interval and mean counts
     if add_labels: # to have only 1 set of labels for each crystal material
