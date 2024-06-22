@@ -5,7 +5,7 @@ from matplotlib.gridspec import GridSpec
 
 # Define the heating rates and their corresponding strings
 HRs = [[2, 5, 10], [2, 10, 20]]
-HRs_str = [['2', '5', '10'], ['2', '10', '20']]
+HRs_str = [[' 2', ' 5', '10'], [' 2', '10', '20']]
 
 # Define crystal names and linestyles for plotting
 crystal_names = ['MCP', 'MTS']
@@ -120,4 +120,4 @@ for i, (crystal, name) in enumerate(zip([MCP, MTS], crystal_names)):
 
 # Adjust layout and save the figure
 plt.subplots_adjust(top=0.97, bottom=0.03, left=0.07, right=0.98, hspace=0.35)
-plt.savefig('results/figures/glowcurves.pdf', bbox_inches='tight')
+plt.savefig('results/glowcurves.pdf', bbox_inches='tight')

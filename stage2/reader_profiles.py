@@ -61,4 +61,4 @@ for i in range(2): # for each material
 
 # Adjust layout and save the figure
 plt.subplots_adjust(top=0.95, bottom=0.08, left=0.08, right=0.99, hspace=0.31, wspace=0.1)
-plt.savefig(f'results/figures/reader_heat_profiles.pdf')
+plt.savefig(f'results/reader_heat_profiles.pdf')

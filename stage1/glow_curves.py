@@ -67,4 +67,4 @@ ax2.set_xlabel(r'Time [s]')
 
 # Adjust layout and save the figure
 fig.subplots_adjust(top=0.98, bottom=0.03, left=0.07, right=0.99, hspace=0.17, wspace=0.1)
-plt.savefig('results/figures/glowcurves.pdf', bbox_inches='tight')
+plt.savefig('results/glowcurves.pdf', bbox_inches='tight')

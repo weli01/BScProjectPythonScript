@@ -17,7 +17,6 @@ PD_names = ['  >15', '10-15', ' 5-10', '   <5']
 fig = plt.figure(figsize=(8, 5.2))
 gs = fig.add_gridspec(2, 1, hspace=0)
 
-
 # Function to extract crystal information, calculates statistics, and stores results.
 def process_crystal(crystal, control, is_mcp):
     '''
@@ -53,7 +52,10 @@ def process_crystal(crystal, control, is_mcp):
 
     # Convert certain columns to integers and save the results to a CSV file
     results[['crystal_num', 'counts', 'difference']] = results[['crystal_num', 'counts', 'difference']].astype(int)
-    results.to_csv(f'results/numerical/{crystal_name}_results.csv', index=False)
+
+    print(f'\033[4m{crystal_name}\033[0m:\n'
+          f'{results.to_string(index=False)}\n')
+
 
     # Sort the crystals by the absolute difference from the median
     sorted_crystals = abs(counts - median).sort_values(ascending=False)
@@ -72,6 +74,7 @@ def print_non_nan_values(df, PD_names):
         values = [(i + 1, v) for i, v in enumerate(df[column]) if not pd.isna(v)]
         formatted_values = ", ".join(f"[#{index}: {value:.1f}]" for index, value in values)
         print(f'{PD_names[name]}: {formatted_values}')
+    print(f'{"-" * 200}\n')
 
 
 # Main loop to process each crystal and generate plots
@@ -84,11 +87,9 @@ for i, (crystal, crystal_name) in enumerate(zip([MCP, MTS], crystal_names)):
     results, sorted_crystals, median, MAD, control = process_crystal(crystal, control, is_mcp=(i == 0))
 
     # Print the results for each crystal
-    dash = '-' * 40
-    print(f'{dash}\n'
-        f'\033[4m{crystal_name}:\033[0m\n'
-        f'Median = {median:.0f} \u00B1 {MAD:.0f}\n'
-        f'Control Counts = {statistics.mean(control):.0f} \u00B1 {statistics.stdev(control):.0f}\n')
+
+    print(f'Median = {median:.0f} \u00B1 {MAD:.0f}\n'
+          f'Control Counts = {statistics.mean(control):.0f} \u00B1 {statistics.stdev(control):.0f}\n')
 
     # Create a dataframe for the percentage difference ranges
     PD_ranges = pd.DataFrame({
@@ -100,7 +101,6 @@ for i, (crystal, crystal_name) in enumerate(zip([MCP, MTS], crystal_names)):
 
     # Print the percentage difference ranges
     print_non_nan_values(PD_ranges, PD_names)
-    print(f'{dash}\n')
 
     # Create a subplot for each crystal
     ax = fig.add_subplot(gs[i, 0])
@@ -144,4 +144,5 @@ for i, (crystal, crystal_name) in enumerate(zip([MCP, MTS], crystal_names)):
 
 # Adjust layout and save the figure
 plt.subplots_adjust(top=0.95, bottom=0.08, left=0.07, right=0.92, hspace=0.1, wspace=0.3)
-plt.savefig('results/figures/intercrystal.pdf')
+plt.savefig('results/intercrystal.pdf')
+
