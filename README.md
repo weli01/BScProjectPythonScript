@@ -14,7 +14,7 @@ There are 6 top folders. The first folder contains the files needed for producin
 
 In each folder you will find the following:
 - _data_ folder: contains the data produced either by the oven or the TLD reader
-- _results_ folder: contains numerical and/or visual (plots) results
+- _results_ folder: contains plots (numerical results are printed out)
 - _scripts_: the .py files containg the scripts for each individual task
 - _README_: a short description of each stage 
 
