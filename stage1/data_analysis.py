@@ -50,7 +50,7 @@ def process_crystal(crystal, control, is_mcp):
         'PD_abs': abs(PD)
     }).sort_values('PD_abs', ascending=False)
 
-    # Convert certain columns to integers and save the results to a CSV file
+    # Convert certain columns to integers 
     results[['crystal_num', 'counts', 'difference']] = results[['crystal_num', 'counts', 'difference']].astype(int)
 
     print(f'\033[4m{crystal_name}\033[0m:\n'
