@@ -64,8 +64,3 @@ xlrd==2.0.1
 youtube-dl==2021.12.17
 zipp==3.19.2
 ```
-
-## License
-
-This project is licensed under the [NAME HERE] License.
-
