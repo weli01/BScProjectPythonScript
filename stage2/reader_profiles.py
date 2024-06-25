@@ -20,7 +20,7 @@ MTS1, MTS2, MTS3 = [data[f'MTS{i}'].dropna().reset_index(drop=True) for i in ran
 profiles = [[MCP1, MCP2, MCP3],
             [MTS1, MTS2, MTS3]]
 HRs = [[2, 5, 10],
-       [5, 10, 20]]
+       [2, 10, 20]]
 
 # Define tiles and linestyles for plotting
 plot_titles = ['MCP Readout', 'MTS Readout']
