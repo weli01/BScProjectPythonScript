@@ -50,7 +50,7 @@ def process_crystal(crystal, control, is_mcp):
         'PD_abs': abs(PD)
     }).sort_values('PD_abs', ascending=False)
 
-    # Convert certain columns to integers 
+    # Convert certain columns to integers
     results[['crystal_num', 'counts', 'difference']] = results[['crystal_num', 'counts', 'difference']].astype(int)
 
     print(f'\033[4m{crystal_name}\033[0m:\n'
@@ -104,21 +104,20 @@ for i, (crystal, crystal_name) in enumerate(zip([MCP, MTS], crystal_names)):
 
     # Create a subplot for each crystal
     ax = fig.add_subplot(gs[i, 0])
-    color_sct, color_tm = ('#0554f2', '#07bdfa') if i == 0 else ('darkorange', 'orange')
 
     # Scatter plot of the counts and plot the median line
-    ax.scatter(results['crystal_num'], results['counts'], color=color_sct, label='Measured counts', zorder=10)
-    ax.plot(np.arange(-1, 34, 1), np.full(35, median), '--', color=color_tm, linewidth=1, label="Median count", zorder=2)
+    ax.scatter(results['crystal_num'], results['counts'], color='#0554f2' if i == 0 else 'darkorange', label='Measured counts', zorder=10)
+    ax.plot(np.arange(0, 35, 1), np.full(35, median), '--', color='#07bdfa' if i == 0 else 'orange', linewidth=1, label="Median count", zorder=2)
 
     # Set the y-axis limits
     y_max = median + 0.25 * median
     y_min = median - 0.25 * median
 
     # Configure the x- and y-axis ticks
-    ax.set_xticks(np.arange(0, 33, 1), minor=True)
-    ax.set_xticks(np.arange(0, 33, 2), minor=False)
+    ax.set_xticks(np.arange(1, 34, 1), minor=True)
+    ax.set_xticks(np.arange(1, 34, 2), minor=False)
     ax.set_yticks(np.arange(round(y_min, -5 if i == 1 else -6), round(y_max, -5 if i == 1 else -6), 100000 if i == 1 else 1000000))
-    ax.set_xlim(-1, 33)
+    ax.set_xlim(0, 34)
     ax.set_ylim(y_min, y_max)
 
     # Format the y-axis labels
@@ -134,6 +133,13 @@ for i, (crystal, crystal_name) in enumerate(zip([MCP, MTS], crystal_names)):
     # Add horizontal lines for percentage difference thresholds
     for j in [-15, -10, -5, 5, 10, 15]:
         axPD.axhline(j, 0, 34, linestyle='--', linewidth=0.7, alpha=0.3, color='grey', zorder=1)
+
+    # Add arrows to 3 crystals with greatest deviation
+    for k in range(3):
+        ax.annotate('', (results.iloc[k]['crystal_num']+0.1, results.iloc[k]['counts']),
+                    xytext=(13, 6),  # Reverse the direction and adjust the position
+                    textcoords='offset points',
+                    arrowprops=dict(arrowstyle='-|>', color='red', lw=1))
 
     # Set axis labels, title and legend
     ax.set_xlabel('Crystal Number')
