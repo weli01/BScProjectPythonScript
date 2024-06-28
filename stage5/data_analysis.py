@@ -43,13 +43,13 @@ SSD_std = pd.concat([analysis_50[3], analysis_80[3]])
 
 ## Bland-Altman analysis
 
-mean = (TLD + SSD) / 2
+mean = (TLD + SSD) / 2 # Mean of doses
 diff = TLD - SSD  # Difference between TLD and SSD measurments
 pd = diff / SSD * 100 # Percentage difference
-md = np.mean(diff) # Mean of the difference
+bias = np.mean(diff) # Mean of the differences
 sd = np.std(diff, axis=0) # Standard deviation of the difference
-UL = md + 1.96*sd # Upper limit
-LL = md - 1.96*sd # Lower limit
+UL = bias + 1.96*sd # Upper limit
+LL = bias - 1.96*sd # Lower limit
 
 # Formatting and printing
 formatted_pd = pd.apply(lambda x: f'{x:.1f}')
@@ -67,16 +67,23 @@ y_adjust = 20
 fig = plt.figure(figsize=(8, 5))
 plt.scatter(mean[0:5], diff[0:5], color='#0554f2', s=120, marker='+', label='50 kVp')
 plt.scatter(mean[5:10], diff[5:10], color='#fa6007', s=45, marker='x', label='80 kVp')
-plt.axhline(md, color='gray', linestyle='--', zorder=-1)
+plt.axhline(bias, color='gray', linestyle='--', zorder=-1)
 plt.axhline(y=0, color='grey', linestyle='-', linewidth=1, zorder=-1, alpha=0.3)
 plt.axhline(UL, color='gray', linestyle=':')
 plt.axhline(LL, color='gray', linestyle=':')
 
 # Annotate plot with mean and limit lines
-for line, pos, label in zip([UL, LL, md], [y_adjust / 2, y_adjust / 2, y_adjust / 2],
+for line, pos, label in zip([UL, LL, bias], [y_adjust / 2, y_adjust / 2, y_adjust / 2],
                             ['+1.96 SD', '-1.96 SD', 'Mean']):
     plt.text(x=x_adjust, y=line + pos, s=label, ha='right', fontsize=12)
     plt.text(x=x_adjust, y=line - y_adjust * 1.5, s=f'{line:.2f}', ha='right', fontsize=12)
+
+# Add annotations to the 80 kVp data points
+plt.annotate('5 mAs', (mean.reset_index(drop=True)[5], diff.reset_index(drop=True)[5]-10), xytext=(-10, -35), textcoords='offset points', fontsize=9, arrowprops=dict(arrowstyle='-', color='black', lw=0.7))
+plt.annotate('10 mAs', (mean.reset_index(drop=True)[6], diff.reset_index(drop=True)[6]+10), xytext=(-10, 25), textcoords='offset points', fontsize=9, arrowprops=dict(arrowstyle='-', color='black', lw=0.7))
+plt.annotate('20 mAs', (mean.reset_index(drop=True)[7], diff.reset_index(drop=True)[7]+10), xytext=(-17, 1), textcoords='offset points', fontsize=9)
+plt.annotate('50 mAs', (mean.reset_index(drop=True)[8], diff.reset_index(drop=True)[8]), xytext=(-20, -13), textcoords='offset points', fontsize=9)
+plt.annotate('100 mAs', (mean.reset_index(drop=True)[9]-50, diff.reset_index(drop=True)[9]+2), xytext=(-100, 15), textcoords='offset points', fontsize=9, arrowprops=dict(arrowstyle='-', color='black', lw=0.7))
 
 # Configure axis labels and limits, and add legend
 plt.xlabel(f'Mean Dose [μGy]', fontsize=12)
